@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Ajax Module Test</title>
+    <!-- Bootstrap -->
+    <link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1> Module First Instance </h1>
+       <div class="row">
+           <div class="col-lg-3  well">
+               <input id="part1Btn1_id"  class="btn btn-success btn-block" type="button" value=" Get json Data">
+           </div>
+           <div class="col-lg-3  well">
+               <input id="part1Btn2_id" class=" btn btn-info btn-block" type="button" value=" Get html Data">
+           </div>
+           <div class="col-lg-3  well">
+               <input  id="part1Btn3_id" class=" btn btn-warning btn-block" type="button" value=" Get 401 error">
+           </div>
+           <div class="col-lg-3  well">
+               <input id="part1Btn4_id"  class=" btn btn-danger btn-block" type="button" value=" Get 500 error">
+           </div>
+       </div>
+        <div class="row hide" id="part1RowResponse_id" >
+            <div class="col-lg-12  well">
+            <p id="part1Response_id"><b>Response:</b> </p>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="jumbotron">
+        <h1> Module Second Instance </h1>
+        <div class="row">
+            <div class="col-lg-3  well">
+                <input id="part2Btn1_id"  class="btn btn-success btn-block" type="button" value=" Get json Data">
+            </div>
+            <div class="col-lg-3  well">
+                <input id="part2Btn2_id" class=" btn btn-info btn-block" type="button" value=" Get html Data">
+            </div>
+            <div class="col-lg-3  well">
+                <input  id="part2Btn3_id" class=" btn btn-warning btn-block" type="button" value=" Get 401 error">
+            </div>
+            <div class="col-lg-3  well">
+                <input id="part2Btn4_id"  class=" btn btn-danger btn-block" type="button" value=" Get 500 error">
+            </div>
+        </div>
+        <div class="row hide" id="part2RowResponse_id" >
+            <div class="col-lg-12  well">
+                <p id="part2Response_id"><b>Response:</b> </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script src="lib/head.load.js"></script>
+
+<script>
+
+
+    (function InitModules(){
+
+        head.load([
+            'lib/jquery.js',
+            'modules/AjaxModule.js',
+            'modules/TestModule.js'
+        ], function() {
+
+            var oConfigIdModule={
+                idJsonBtn:    'part1Btn1_id',
+                idHtmlBtn:    'part1Btn2_id',
+                id401Btn:     'part1Btn3_id',
+                id500btn:     'part1Btn4_id',
+                idDisplayDiv: 'part1RowResponse_id'
+            };
+            var oConfigUrls={
+                urlJson:    {url:'server/server.php?tr=rJson', method:'put'  ,data:null},
+                urlHtml:    {url:'server/server.php?tr=rHtml', method:'post' ,data:{a:1,b:2}},
+                url401:     {url:'server/server.php?tr=r401', method:'post'},
+                url500:     {url:'server/server.php?tr=r500', method:'post'}
+            };
+            var oModule1= new TestModule(new AjaxModule(),oConfigIdModule,oConfigUrls);
+            var oConfigIdModule2={
+                idJsonBtn:    'part2Btn1_id',
+                idHtmlBtn:    'part2Btn2_id',
+                id401Btn:     'part2Btn3_id',
+                id500btn:     'part2Btn4_id',
+                idDisplayDiv: 'part2RowResponse_id'
+            };
+            var oConfigUrls2={
+                urlJson:    {url:'server/server.php?tr=rJson', method:'put'  ,data:{a:1,b:2}},
+                urlHtml:    {url:'server/server.php?tr=rHtml', method:'post' ,data:{a:1,b:2}},
+                url401:     {url:'server/server.php?tr=r401', method:'post'},
+                url500:     {url:'server/server.php?tr=r500', method:'post'}
+            };
+            var oModule2= new TestModule(new AjaxModule(),oConfigIdModule2,oConfigUrls2);
+
+        });
+
+    })();
+
+</script>
